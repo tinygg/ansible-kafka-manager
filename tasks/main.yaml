@@ -75,7 +75,7 @@
 - name: Template configuration file to application.conf
   template:
     src: application.conf.j2
-    dest: '{{ kafka_manager_dir }}/config/application.conf'
+    dest: '{{ kafka_manager_dir }}/conf/application.conf'
   tags:
     - kafka_manager_config
 
