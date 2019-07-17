@@ -1,2 +1,12 @@
 #!/usr/bin/env bash
-nohup {{ kafka_manager_dir }}/bin/kafka-manager -Dconfig.file={{ kafka_manager_dir }}/conf/application.conf -Dapplication.home={{ kafka_manager_dir }} > /dev/null 2>&1 &
+
+echo "starting kafka-manager..."
+# Run your process in background
+{{ kafka_manager_dir }}/bin/kafka-manager -Dconfig.file={{ kafka_manager_dir }}/conf/application.conf -Dapplication.home={{ kafka_manager_dir }} &
+
+# Check if the services started successfully 
+if ! kill -0 $! 2>/dev/null; then
+    # Return 1 so that systemd knows the service failed to start
+    exit 1
+fi
+exit 0
