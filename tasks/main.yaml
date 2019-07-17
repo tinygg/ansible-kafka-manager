@@ -36,8 +36,8 @@
     - '{{ kafka_manager_install_dir }}'
     - '{{ kafka_manager_log_dirs }}'
     - '{{ kafka_manager_dir }}'
-  notify:
-    - stop kafka-manager
+  #notify:
+  #  - stop kafka-manager
   tags:
     - kafka_manager_cleanup
 
