@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-{{ kafka_manager_dir }}/bin/kafka-manager -Dconfig.file={{ kafka_manager_dir }}/conf/application.conf -Dapplication.home={{ kafka_manager_dir }}
+nohup {{ kafka_manager_dir }}/bin/kafka-manager -Dconfig.file={{ kafka_manager_dir }}/conf/application.conf -Dapplication.home={{ kafka_manager_dir }} > /dev/null 2>&1 &
