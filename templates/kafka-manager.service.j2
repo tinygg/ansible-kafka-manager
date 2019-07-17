@@ -7,7 +7,7 @@ After=network.target
 [Service]
 Type=simple
 SuccessExitStatus=143
-ExecStart={ kafka_manager_dir }}/bin/kafka-manager-start.sh
+ExecStart={{ kafka_manager_dir }}/bin/kafka-manager-start.sh
 ExecStop={{ kafka_manager_dir }}/bin/kafka-manager-stop.sh
 User={{ kafka_manager_user }}
 Group={{ kafka_manager_group }}
