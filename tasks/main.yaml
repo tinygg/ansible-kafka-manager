@@ -72,7 +72,7 @@
   tags:
     - kafka_manager_unpack
 
-- name: Template configuration file to server.properties
+- name: Template configuration file to application.conf
   template:
     src: application.conf.j2
     dest: '{{ kafka_manager_dir }}/config/application.conf'
