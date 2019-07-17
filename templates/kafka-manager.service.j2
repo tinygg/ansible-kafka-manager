@@ -7,7 +7,7 @@ After=network.target
 [Service]
 Type=forking
 # SuccessExitStatus=0
-ExecStart={{ kafka_manager_dir }}/bin/kafka-manager -Dconfig.file={{ kafka_manager_dir }}/conf/application.conf -Dapplication.home={{ kafka_manager_dir }}
+ExecStart={{ kafka_manager_dir }}/bin/kafka-manager-start.sh
 ExecStop={{ kafka_manager_dir }}/bin/kafka-manager-stop.sh
 # PIDFile={{ kafka_manager_dir }}/RUNNING_PID
 User={{ kafka_manager_user }}
