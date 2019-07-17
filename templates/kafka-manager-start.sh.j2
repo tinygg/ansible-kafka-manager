@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 rm -rf {{ kafka_manager_dir }}/RUNNING_PID
 echo "starting kafka-manager..."
 # Run your process in background
@@ -11,4 +10,4 @@ if ! kill -0 $! 2>/dev/null; then
     exit 1
 fi
 echo "end starting kafka-manager."
-# exit 0
+exit 0
