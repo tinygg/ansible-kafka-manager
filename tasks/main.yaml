@@ -28,6 +28,10 @@
   tags:
     - kafka_manager_download
 
+- name: stop kafka-manager
+  shell: '{{ kafka_manager_dir }}/bin/kafka-manager-stop.sh'
+  ignore_errors: yes
+
 - name: Cleanup required directories
   file:
     path: '{{ item }}'
@@ -38,10 +42,6 @@
     - '{{ kafka_manager_dir }}'
   tags:
     - kafka_manager_cleanup
-
-- name: stop kafka-manager
-  shell: '{{ kafka_manager_dir }}/bin/kafka-manager-stop.sh'
-  ignore_errors: yes
 
 - name: Creating required directories
   file:
