@@ -1,0 +1,145 @@
+---
+- name: Create kafka_manager group
+  group:
+    name: '{{ kafka_manager_group }}'
+    state: present
+  tags:
+    - kafka_manager_group
+
+- name: Create kafka_manager user
+  user:
+    name: '{{ kafka_manager_user }}'
+    group: '{{ kafka_manager_group }}'
+    state: present
+    createhome: no
+  tags:
+    - kafka_manager_user
+
+- name: Check if kafka-manager zip file has already been downloaded
+  stat:
+    path: '/tmp/{{ kafka_manager_zip_file }}'
+  register: tmp_zip
+
+- name: Download kafka-manager zip file 
+  get_url:
+    url: '{{ kafka_manager_download_url }}'
+    dest: /tmp
+  when: tmp_zip.stat.exists == False
+  tags:
+    - kafka_manager_download
+
+- name: Cleanup required directories
+  file:
+    path: '{{ item }}'
+    state: absent
+  with_items:
+    - '{{ kafka_manager_install_dir }}'
+    - '{{ kafka_manager_log_dirs }}'
+    - '{{ kafka_manager_dir }}'
+  tags:
+    - kafka_manager_cleanup
+
+- name: Creating required directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    group: '{{ kafka_manager_group }}'
+    owner: '{{ kafka_manager_user }}'
+  with_items:
+    - '{{ kafka_manager_root_dir }}'
+    - '{{ kafka_manager_install_dir }}'
+    - '{{ kafka_manager_log_dirs }}'
+  tags:
+    - kafka_manager_dirs
+
+- name: Create symlink to kafka_manager installation directory
+  file:
+    src: '{{ kafka_manager_install_dir }}'
+    dest: '{{ kafka_manager_dir }}'
+    state: link
+    group: '{{ kafka_manager_group }}'
+    owner: '{{ kafka_manager_user }}'
+  tags:
+    - kafka_manager_dirs
+
+- name: Unpack kafka-manager
+  unarchive:
+    src: /tmp/{{ kafka_manager_zip_file }}
+    dest: '{{ kafka_manager_root_dir }}'
+    copy: no
+    group: '{{ kafka_manager_group }}'
+    owner: '{{ kafka_manager_user }}'
+  tags:
+    - kafka_manager_unpack
+
+- name: Template configuration file to server.properties
+  template:
+    src: application.conf.j2
+    dest: '{{ kafka_manager_dir }}/config/application.conf'
+  tags:
+    - kafka_manager_config
+
+- name: Template shell start service file to kafka-manager-start.sh
+  template:
+    src: kafka-manager-start.sh.j2
+    dest: '{{ kafka_manager_dir }}/bin/kafka-manager-start.sh'
+    force: yes
+    mode: '777'
+  tags:
+    - kafka_manager_service_sh
+
+- name: Copy shell stop service file to kafka-manager-stop.sh
+  copy:
+    src: 'templates/kafka-manager-stop.sh'
+    remote_src: no
+    dest: '{{ kafka_manager_dir }}/bin/kafka-manager-stop.sh'
+    force: yes
+    group: '{{ kafka_manager_group }}'
+    owner: '{{ kafka_manager_user }}'
+    mode: '777'
+  tags:
+    - kafka_manager_service_sh
+
+#- name: Template configuration file to consumer.properties
+#  template:
+#    src: consumer.properties.j2
+#    dest: '{{ kafka_dir }}/config/consumer.properties'
+#  tags:
+#    - kafka_manager_config
+
+
+#- name: Template Kafka init.d service file
+#  template:
+#    src: kafka.initd.j2
+#    dest: /etc/init.d/kafka
+#    mode: 0755
+#  notify:
+#    - Reload initd
+#    - Restart kafka service
+#  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == '6'
+#  tags:
+#    - kafka_service
+
+- name: Template kafka systemd service file to /usr/lib/systemd/system/kafka.service
+  template:
+    src: kafka-manager.service.j2
+    dest: /etc/systemd/system/kafka-manager.service
+  notify:
+    - Reload systemd
+  tags:
+    - kafka-manager_service
+
+- name: Install and start the kafka-manager service
+  service:
+    name: kafka-manager
+    state: restarted
+    enabled: yes
+  tags:
+    - kafka-manager_service
+
+- name: Delete the kafka-manager archive file
+  file:
+    path: /tmp/{{ kafka_manager_zip_file }}
+    state: absent
+  tags:
+    - kafka-manager_cleanup

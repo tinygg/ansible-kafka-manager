@@ -1,0 +1,21 @@
+---
+#dependencies:
+#  - tinygg.ansible_zookeeper
+#  - tinygg.ansible_kafka
+
+galaxy_info:
+  author: tinygg
+  description: ansible role kafka-manager
+  company: "NONE"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - all
+  galaxy_tags:
+    - kafka-manager
+    - kafka
+    - manager
+    - web
+    - web-manager

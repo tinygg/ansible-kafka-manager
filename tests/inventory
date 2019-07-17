@@ -1,0 +1,4 @@
+[kafka-nodes]
+kafka01.test.com        kafka_broker_id=1
+kafka02.test.com        kafka_broker_id=2
+kafka03.test.com        kafka_broker_id=3
