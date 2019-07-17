@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-rm -rf {{ kafka_manager_dir }}/RUNNING_PID
+
 echo "starting kafka-manager..."
 # Run your process in background
-nohup {{ kafka_manager_dir }}/bin/kafka-manager -Dconfig.file={{ kafka_manager_dir }}/conf/application.conf -Dapplication.home={{ kafka_manager_dir }} >/dev/null 2>&1 &
+nohup {{ kafka_manager_dir }}/bin/kafka-manager -Dconfig.file={{ kafka_manager_dir }}/conf/application.conf -Dapplication.home={{ kafka_manager_dir }} >/dev/null 2>&1&
 
 # Check if the services started successfully 
 if ! kill -0 $! 2>/dev/null; then
@@ -10,4 +10,5 @@ if ! kill -0 $! 2>/dev/null; then
     exit 1
 fi
 echo "end starting kafka-manager."
+
 exit 0

@@ -10,4 +10,6 @@ kill -9 $pid_from_file
 #echo "Shutting down Kafka Manager"
 #kill -9 $pid
 
+rm -rf {{ kafka_manager_dir }}/RUNNING_PID
+
 exit 0
