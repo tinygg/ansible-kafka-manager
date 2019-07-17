@@ -41,6 +41,7 @@
 
 - name: stop kafka-manager
   shell: '{{ kafka_manager_dir }}/bin/kafka-manager-stop.sh'
+  ignore_errors: yes
 
 - name: Creating required directories
   file:
