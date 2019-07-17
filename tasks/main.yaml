@@ -79,18 +79,21 @@
   tags:
     - kafka_manager_config
 
-- name: Template shell start service file to kafka-manager-start.sh
+- name: Template start service file to kafka-manager-start.sh
   template:
     src: kafka-manager-start.sh.j2
+    remote_src: no
     dest: '{{ kafka_manager_dir }}/bin/kafka-manager-start.sh'
+    group: '{{ kafka_manager_group }}'
+    owner: '{{ kafka_manager_user }}'
     force: yes
     mode: '777'
   tags:
     - kafka_manager_service_sh
 
-- name: Copy shell stop service file to kafka-manager-stop.sh
-  copy:
-    src: 'templates/kafka-manager-stop.sh'
+- name: Template stop service file to kafka-manager-stop.sh
+  template:
+    src: 'kafka-manager-stop.sh.j2'
     remote_src: no
     dest: '{{ kafka_manager_dir }}/bin/kafka-manager-stop.sh'
     force: yes

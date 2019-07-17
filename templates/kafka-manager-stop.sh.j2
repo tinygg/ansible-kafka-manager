@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+pid_from_file=$(echo `cat {{ kafka_manager_dir }}/RUNNING_PID`)
+echo "PID is "$pid_from_file" (from RUNNING_PID)."
+
 echo "stopping kafka-manager..."
 kafka_manager_pid=$(echo `ps aux | grep kafka-manager | grep -v grep | awk '{ print $2 }'`)
 pid=$kafka_manager_pid
