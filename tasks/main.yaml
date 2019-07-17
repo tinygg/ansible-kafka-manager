@@ -36,10 +36,11 @@
     - '{{ kafka_manager_install_dir }}'
     - '{{ kafka_manager_log_dirs }}'
     - '{{ kafka_manager_dir }}'
-  #notify:
-  #  - stop kafka-manager
   tags:
     - kafka_manager_cleanup
+
+- name: stop kafka-manager
+  shell: '{{ kafka_manager_dir }}/bin/kafka-manager-stop.sh'
 
 - name: Creating required directories
   file:
