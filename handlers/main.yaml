@@ -8,9 +8,9 @@
   # service:
     # name: kafka-manager
     # state: restarted
-    
+
 - name: start kafka-manager
-  shell: {{ kafka_manager_dir }}/bin/kafka-manager-start.sh
+  shell: '{{ kafka_manager_dir }}/bin/kafka-manager-start.sh'
 
 - name: stop kafka-manager
-  shell: {{ kafka_manager_dir }}/bin/kafka-manager-stop.sh
+  shell: '{{ kafka_manager_dir }}/bin/kafka-manager-stop.sh'
