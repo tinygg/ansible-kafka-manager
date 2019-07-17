@@ -21,7 +21,7 @@ play.http.context = "/"
 play.application.loader=loader.KafkaManagerLoader
 
 # kafka-manager.zkhosts="localhost:2181"
-kafka-manager.zkhosts={% for item in zookeeper_servers%}{{ item.host }}:{{ item.port }}{% if not loop.last %},{% endif %}{% endfor %}
+kafka-manager.zkhosts="{% for item in zookeeper_servers%}{{ item.host }}:{{ item.port }}{% if not loop.last %},{% endif %}{% endfor %}"
 
 pinned-dispatcher.type="PinnedDispatcher"
 pinned-dispatcher.executor="thread-pool-executor"
