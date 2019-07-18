@@ -114,7 +114,7 @@
     # mode: 0755
   # notify:
     # - Reload systemd
-    # - Restart kafka-manager service
+    # - Restart kafka_manager service
   # tags:
     # - kafka-manager_service
 
@@ -129,7 +129,7 @@
 - name: Start the kafka-manager
   shell: echo "starting kafka-manager"
   notify:
-    - start kafka-manager
+    - start kafka_manager
 
 - name: Delete the kafka-manager archive file
   file:

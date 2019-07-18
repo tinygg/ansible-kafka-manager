@@ -9,9 +9,9 @@
     # name: kafka-manager
     # state: restarted
 
-- name: start kafka-manager
+- name: start kafka_manager
   #shell: '{{ kafka_manager_dir }}/bin/kafka-manager-start.sh'
   shell: 'nohup {{ kafka_manager_dir }}/bin/kafka-manager -Dconfig.file={{ kafka_manager_dir }}/conf/application.conf -Dapplication.home={{ kafka_manager_dir }} >/dev/null 2>&1&'
 
-- name: stop kafka-manager
+- name: stop kafka_manager
   shell: '{{ kafka_manager_dir }}/bin/kafka-manager-stop.sh'

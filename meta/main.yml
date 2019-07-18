@@ -14,8 +14,6 @@ galaxy_info:
       versions:
         - all
   galaxy_tags:
-    - kafka-manager
     - kafka
-    - manager
     - web
-    - kafka_web_manager
+    - manager
