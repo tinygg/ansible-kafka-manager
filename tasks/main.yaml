@@ -20,11 +20,11 @@
     path: '/tmp/{{ kafka_manager_zip_file }}'
   register: tmp_zip
 
-- name: Download kafka-manager zip file 
+- name: Download kafka-manager zip file
   get_url:
     url: '{{ kafka_manager_download_url }}'
     dest: /tmp
-  when: tmp_zip.stat.exists == False
+  when: not tmp_zip.stat.exists
   tags:
     - kafka_manager_download
 

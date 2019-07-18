@@ -1,11 +1,11 @@
 ---
-#dependencies:
+dependencies: []
 #  - tinygg.ansible_zookeeper
 #  - tinygg.ansible_kafka
 
 galaxy_info:
   author: tinygg
-  description: ansible role kafka-manager
+  description: ansible role kafka_manager
   company: "NONE"
   license: "license (BSD, MIT)"
   min_ansible_version: 2.4
@@ -18,4 +18,4 @@ galaxy_info:
     - kafka
     - manager
     - web
-    - web-manager
+    - kafka_web_manager
