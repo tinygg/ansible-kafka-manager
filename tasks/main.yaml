@@ -32,6 +32,10 @@
   shell: '{{ kafka_manager_dir }}/bin/kafka-manager-stop.sh'
   ignore_errors: yes
 
+- name: "stop kafka-manager"
+  debug:
+    msg: "todo: need to kill -9 PID of old proccess"
+
 - name: Cleanup required directories
   file:
     path: '{{ item }}'
@@ -114,7 +118,7 @@
     # mode: 0755
   # notify:
     # - Reload systemd
-    # - Restart kafka-manager service
+    # - Restart kafka_manager service
   # tags:
     # - kafka-manager_service
 
@@ -131,7 +135,7 @@
 - name: Start the kafka-manager
   shell: echo "starting kafka-manager"
   notify:
-    - start kafka-manager
+    - start kafka_manager
 
 - name: Delete the kafka-manager archive file
   file:
