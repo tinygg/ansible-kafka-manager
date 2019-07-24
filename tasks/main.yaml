@@ -126,6 +126,8 @@
   # tags:
     # - kafka-manager_service
 
+# clean up invalid service: systemctl reset-failed
+
 - name: Start the kafka-manager
   shell: echo "starting kafka-manager"
   notify:

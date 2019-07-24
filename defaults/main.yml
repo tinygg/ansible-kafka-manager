@@ -16,6 +16,7 @@ kafka_manager_root_dir: '/usr/lib/kafka-manager'
 kafka_manager_install_dir: '{{ kafka_manager_root_dir }}/kafka-manager-{{ kafka_manager_version }}'
 kafka_manager_dir: '{{ kafka_manager_root_dir }}/kafka-manager'
 kafka_manager_log_dirs: '{{ kafka_manager_install_dir }}/logs'
+kafka_manager_http_port: 9000
 
 ############################# zookeeper servers #############################
 zookeeper_servers: '[{id:1, host:"localhost", port: 2181}]'

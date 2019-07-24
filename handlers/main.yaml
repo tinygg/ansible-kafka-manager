@@ -9,9 +9,12 @@
     # name: kafka-manager
     # state: restarted
 
-- name: start kafka-manager
-  #shell: '{{ kafka_manager_dir }}/bin/kafka-manager-start.sh'
+- name: "starting kafka-manager"
   shell: 'nohup {{ kafka_manager_dir }}/bin/kafka-manager -Dconfig.file={{ kafka_manager_dir }}/conf/application.conf -Dapplication.home={{ kafka_manager_dir }} >/dev/null 2>&1&'
+
+- name: "starting kafka-manager"
+  debug:
+    msg: "todo: need to kill -9 PID of old proccess"
 
 - name: stop kafka-manager
   shell: '{{ kafka_manager_dir }}/bin/kafka-manager-stop.sh'
